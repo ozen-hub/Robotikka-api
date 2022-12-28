@@ -15,6 +15,6 @@ import javax.persistence.Embeddable;
 public class FileResource {
     private String directory;
     private String hash;
-    private String resource_url;
-    private String file_name;
+    private String resourceUrl;
+    private String fileName;
 }
