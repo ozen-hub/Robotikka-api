@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Getter
@@ -13,6 +14,7 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @Embeddable
 public class FileResource {
+    @Column(name="directory_name")
     private String directory;
     private String hash;
     private String resourceUrl;
