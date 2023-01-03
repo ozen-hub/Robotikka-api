@@ -1,6 +1,9 @@
 package com.bootcamp.robotikka.robotikkaapi.service.impl;
 
+import com.bootcamp.robotikka.robotikkaapi.entity.User;
 import com.bootcamp.robotikka.robotikkaapi.entity.UserRole;
+import com.bootcamp.robotikka.robotikkaapi.entity.share.UserNameResource;
+import com.bootcamp.robotikka.robotikkaapi.repo.UserRepo;
 import com.bootcamp.robotikka.robotikkaapi.repo.UserRoleRepo;
 import com.bootcamp.robotikka.robotikkaapi.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +16,18 @@ import java.util.List;
 @Transactional
 public class UserRoleImpl implements UserRoleService {
     private final UserRoleRepo userRoleRepo;
+    private final UserRepo userRepo;
 
     @Autowired
-    public UserRoleImpl(UserRoleRepo userRoleRepo) {
+    public UserRoleImpl(UserRoleRepo userRoleRepo, UserRepo userRepo) {
         this.userRoleRepo = userRoleRepo;
+        this.userRepo = userRepo;
     }
 
     @Override
     public void initializeRoles() {
         List<UserRole> userRoles = userRoleRepo.findAll();
+        UserRole adminRole=null;
         if (userRoles.isEmpty()) {
             UserRole role1 = new UserRole("UR-1", "ADMIN",
                     "Super Privileges", null);
@@ -29,10 +35,28 @@ public class UserRoleImpl implements UserRoleService {
                     "Management Privileges", null);
             UserRole role3 = new UserRole("UR-3", "USER",
                     "regular user", null);
+            adminRole=role1;
 
             userRoleRepo.saveAll(List.of(role1,role2,role3));
+        }
 
-            // save new user role
+        if (userRepo.findAllAdmins("UR-1").isEmpty()){
+            User user = new User(
+                    "/*gen id*/",
+                    "011",
+                    new UserNameResource("Anna","Stephany"),
+                    "anna@abc.com",
+                    "1234",
+                    true,
+                    true,
+                    true,
+                    true,
+                    "/*gen prefix*/",
+                    null,
+                    null,
+                    null,
+                    adminRole
+            );
         }
     }
 }

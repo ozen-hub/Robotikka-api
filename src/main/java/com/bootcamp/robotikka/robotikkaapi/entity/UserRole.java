@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "user_role_table")
 @Getter
@@ -20,6 +21,7 @@ public class UserRole {
     private String roleName;
     @Column(name = "role_description")
     private String roleDescription;
-    @OneToOne(mappedBy = "userRole")
-    private User user;
+
+    @OneToMany(mappedBy = "userRole")
+    private List<User> users;
 }
