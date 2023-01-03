@@ -20,8 +20,6 @@ public class UserRole {
     private String roleName;
     @Column(name = "role_description")
     private String roleDescription;
-
     @OneToOne(mappedBy = "userRole")
     private User user;
-
 }
