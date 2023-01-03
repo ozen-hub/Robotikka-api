@@ -57,6 +57,7 @@ public class UserRoleImpl implements UserRoleService {
                     null,
                     adminRole
             );
+            userRepo.save(user);
         }
     }
 }
