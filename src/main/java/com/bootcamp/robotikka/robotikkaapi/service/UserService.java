@@ -1,5 +1,8 @@
 package com.bootcamp.robotikka.robotikkaapi.service;
 
-public interface UserService {
+import com.bootcamp.robotikka.robotikkaapi.dto.request.RequestUserDTO;
+import com.bootcamp.robotikka.robotikkaapi.dto.response.CommonResponseDTO;
 
+public interface UserService {
+public CommonResponseDTO createUser(RequestUserDTO dto);
 }
