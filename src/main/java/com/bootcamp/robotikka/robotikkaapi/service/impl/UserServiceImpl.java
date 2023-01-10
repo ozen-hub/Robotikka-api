@@ -23,9 +23,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public CommonResponseDTO createUser(RequestUserDTO dto) {
         String generatedPrefix = generator.generatePrefix(5, 16);
-        if (userRepo.findByPrefix(generatedPrefix).isPresent()){
+        if (userRepo.findByPrefix(generatedPrefix).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
+        String primaryKey = generator.generatePrimaryKey(generatedPrefix, "U");
+        // send email
+
         //==>
         // generate primary-key
         // send email => (2)
