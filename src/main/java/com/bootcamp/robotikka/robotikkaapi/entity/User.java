@@ -33,6 +33,7 @@ public class User {
     private boolean isCredentialsNonExpired;
     @Column(name = "is_enabled")
     private boolean isEnabled;
+    @Column(name = "prefix", unique = true)
     private String prefix;
     @Embedded
     private FileResource avatar;
