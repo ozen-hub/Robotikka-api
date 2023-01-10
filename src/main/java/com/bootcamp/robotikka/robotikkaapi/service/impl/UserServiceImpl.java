@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
             User user = new User(primaryKey,
                     dto.getContactNumber(), new UserNameResource(
-                    dto.getFName(), dto.getLName()
+                    dto.getFirstName(), dto.getLastName()
             ), dto.getEmail(),
                     dto.getPassword(), true,
                     true, true,
