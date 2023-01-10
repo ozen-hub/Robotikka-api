@@ -3,6 +3,7 @@ package com.bootcamp.robotikka.robotikkaapi;
 import com.bootcamp.robotikka.robotikkaapi.entity.UserRole;
 import com.bootcamp.robotikka.robotikkaapi.repo.UserRoleRepo;
 import com.bootcamp.robotikka.robotikkaapi.service.UserRoleService;
+import com.bootcamp.robotikka.robotikkaapi.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +21,7 @@ public class RobotikkaApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		//
 		userRoleService.initializeRoles();
 	}
 }

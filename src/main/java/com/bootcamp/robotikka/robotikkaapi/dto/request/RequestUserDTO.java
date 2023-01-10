@@ -19,7 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class RequestUserDTO {
     private String contactNumber;
-    private UserNameResource name;
+    private String fName;
+    private String lName;
     private String email;
     private String password;
 }

@@ -32,4 +32,12 @@ public class Generator {
         return new Random().nextInt((max - min) + min) + min;
     }
 
+    public String createVerificationCode() {
+        // 255854 => * not valid (if your verification code is a number)==>(054485)
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            builder.append(NUMERIC.charAt(new Random().nextInt(NUMERIC.length() - 1)));
+        }
+        return builder.toString();
+    }
 }
