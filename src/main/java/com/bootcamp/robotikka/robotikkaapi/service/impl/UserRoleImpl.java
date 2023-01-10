@@ -40,24 +40,5 @@ public class UserRoleImpl implements UserRoleService {
             userRoleRepo.saveAll(List.of(role1,role2,role3));
         }
 
-        if (userRepo.findAllAdmins("UR-1").isEmpty()){
-            User user = new User(
-                    "/*gen id*/",
-                    "011",
-                    new UserNameResource("Anna","Stephany"),
-                    "anna@abc.com",
-                    "1234",
-                    true,
-                    true,
-                    true,
-                    true,
-                    "/*gen prefix*/",
-                    null,
-                    null,
-                    null,
-                    adminRole
-            );
-            userRepo.save(user);
-        }
     }
 }
