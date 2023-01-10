@@ -59,12 +59,26 @@ public class UserServiceImpl implements UserService {
             ), dto.getEmail(),
                     dto.getPassword(), true,
                     true, true,
-                    false, generatedPrefix,verificationCode, null, null,
+                    false, generatedPrefix, verificationCode, null, null,
                     null, selectedUseRole.get());
             userRepo.save(user);
             return new CommonResponseDTO(200, dto.getEmail() + " Send Email", primaryKey);
         } else {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public CommonResponseDTO verifyAccount(String email, String otp) {
+        Optional<User> selectedUser = userRepo.findByEmail(email);
+        if (selectedUser.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (selectedUser.get().isEnabled()) throw new ResponseStatusException(HttpStatus.OK);
+        if (selectedUser.get().getOtp().equals(otp)) {
+            selectedUser.get().setEnabled(true);
+            userRepo.save(selectedUser.get());
+           return new CommonResponseDTO(201,"Activated",null);
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 }
