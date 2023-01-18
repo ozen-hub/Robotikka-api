@@ -27,6 +27,14 @@ public class Generator {
         }
         return builder.toString();
     }
+    public String generateKey(String pointer) { // pointer-+PK (SGDF-U-12327848)
+        StringBuilder builder = new StringBuilder();
+        builder.append(pointer + "-");
+        for (int i = 0; i < 5; i++) {
+            builder.append(NUMERIC.charAt(new Random().nextInt(NUMERIC.length() - 1)));
+        }
+        return builder.toString();
+    }
 
     private int generateRand(int min, int max) { // as an example 10-50
         return new Random().nextInt((max - min) + min) + min;
