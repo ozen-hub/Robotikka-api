@@ -54,4 +54,15 @@ public class ProductController {
                 HttpStatus.CREATED
         );
     }
+    @DeleteMapping("/member/remove/{id}")
+    public ResponseEntity<StandardResponse>deleteProduct(
+            @PathVariable String id
+    ) {
+        CommonResponseDTO updatedData = productService.deleteProduct(id);
+        return new ResponseEntity<>(
+                new StandardResponse(updatedData.getCode(),
+                        updatedData.getMessage(), updatedData.getData()),
+                HttpStatus.NO_CONTENT
+        );
+    }
 }

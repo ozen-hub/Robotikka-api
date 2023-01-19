@@ -8,4 +8,6 @@ public interface ProductService {
     public CommonResponseDTO createProduct(RequestProductDTO dto);
     public CommonResponseDTO updateProduct(RequestProductDTO dto, String id);
     public ResponseProductDTO findProduct(String id);
+
+    CommonResponseDTO deleteProduct(String id);
 }

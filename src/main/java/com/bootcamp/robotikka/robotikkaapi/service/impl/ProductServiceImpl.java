@@ -73,4 +73,13 @@ public class ProductServiceImpl implements ProductService {
                 selectedProduct.get().getSellingPrice()
         );
     }
+
+    @Override
+    public CommonResponseDTO deleteProduct(String id) {
+        Optional<Product> selectedProduct = productRepo.findById(id);
+        if(selectedProduct.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        productRepo.deleteById(selectedProduct.get().getPropertyId());
+        return new CommonResponseDTO(204,"Deleted",null);
+    }
 }
