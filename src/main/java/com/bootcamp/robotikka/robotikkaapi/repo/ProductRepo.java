@@ -14,12 +14,12 @@ import java.util.List;
 @Repository
 public interface ProductRepo extends JpaRepository<Product, String> {
     @Query(
-            value = "SELECT property_id AS propertyId, description, display_name AS displayName, qty, selling_price AS sellingPrice, unit_price AS unitPrice FROM product_table WHERE display_name LIKE %?1%",
+            value = "SELECT property_id AS propertyId, description, display_name AS displayName, qty, selling_price AS sellingPrice, unit_price AS unitPrice FROM product_table",
             nativeQuery = true
     )
     public List<ProductConverter> findAllProductsWithPaginate(String text, Pageable pageable);
     @Query(
-            value = "SELECT COUNT(*) FROM product_table WHERE display_name LIKE %?1%",
+            value = "SELECT COUNT(*) FROM product_table",
             nativeQuery = true
     )
     public long findAllProductsCount(String text);
