@@ -65,4 +65,17 @@ public class ProductController {
                 HttpStatus.NO_CONTENT
         );
     }
+
+    @GetMapping(value = "/member/list", params = {"searchText","page","size"})
+    public ResponseEntity<StandardResponse>deleteProduct(
+            @RequestParam(required = false) String text,
+            @RequestParam int page,
+            @RequestParam int size
+    ) {
+        return new ResponseEntity<>(
+                new StandardResponse(200,
+                        "Product List", productService.findAll(text,page,size)),
+                HttpStatus.OK
+        );
+    }
 }
