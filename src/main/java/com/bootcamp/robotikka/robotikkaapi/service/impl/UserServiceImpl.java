@@ -12,6 +12,8 @@ import com.bootcamp.robotikka.robotikkaapi.service.process.EmailService;
 import com.bootcamp.robotikka.robotikkaapi.util.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,13 +25,15 @@ public class UserServiceImpl implements UserService {
     private final Generator generator;
     private final UserRepo userRepo;
     private final UserRoleRepo userRoleRepo;
+    private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
     @Autowired
-    public UserServiceImpl(Generator generator, UserRepo userRepo, UserRoleRepo userRoleRepo, EmailService emailService) {
+    public UserServiceImpl(Generator generator, UserRepo userRepo, UserRoleRepo userRoleRepo, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.generator = generator;
         this.userRepo = userRepo;
         this.userRoleRepo = userRoleRepo;
+        this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
     }
 
@@ -57,7 +61,7 @@ public class UserServiceImpl implements UserService {
                     dto.getContactNumber(), new UserNameResource(
                     dto.getFirstName(), dto.getLastName()
             ), dto.getEmail(),
-                    dto.getPassword(), true,
+                    passwordEncoder.encode(dto.getPassword()), true,
                     true, true,
                     false, generatedPrefix, verificationCode, null, null,
                     null, selectedUseRole.get());

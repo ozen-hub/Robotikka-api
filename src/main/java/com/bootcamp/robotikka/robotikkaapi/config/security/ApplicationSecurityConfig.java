@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 import static com.bootcamp.robotikka.robotikkaapi.config.permission.ApplicationUserRole.USER;
 
@@ -31,15 +34,25 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(List.of("Authorization","Cache-Control","Content-Type"));
+        corsConfiguration.setAllowedOrigins(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET","PUT","POST","DELETE","PATCH","OPTIONS"));
+        corsConfiguration.setAllowCredentials(false); //
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+
         http.
                 csrf().disable()
+                .cors().configurationSource(request -> corsConfiguration)
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilterAfter(new JwtTokenVerifier(),JwtAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/", "index").permitAll()
+                .antMatchers("/", "index","/api/v1/users/visitor/register","/api/v1/users/visitor/verify").permitAll()
                 .antMatchers("/api/v1/**").hasRole(USER.name())
                 .anyRequest()
                 .authenticated();

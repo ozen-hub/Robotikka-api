@@ -21,7 +21,7 @@ import java.util.Date;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private String secretKey="lskdjuiioferuemorujfteupotufougnruyouyjgoprtjgoujogiutoiurtyytyrty";
+    private String secretKey = "lskdjuiioferuemorujfteupotufougnruyouyjgoprtjgoujogiutoiurtyytyrty";
 
     @Autowired
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws IOException, ServletException {
-String x=secretKey;
+        String x = secretKey;
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())
