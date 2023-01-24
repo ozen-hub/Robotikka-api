@@ -28,12 +28,12 @@ public class ApplicationUserServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userByUsername = userRepo.findByEmail(username);
-        if (userByUsername.isEmpty()){
-            throw new UsernameNotFoundException(String.format("username : %s not found",username));
+        if (userByUsername.isEmpty()) {
+            throw new UsernameNotFoundException(String.format("username : %s not found", username));
         }
         Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
-        switch (userByUsername.get().getUserRole().getRoleName()){
-            case "USER" :
+        switch (userByUsername.get().getUserRole().getRoleName()) {
+            case "USER":
                 grantedAuthorities = USER.getGrantedAuthorities();
                 break;
             case "ADMIN":
@@ -46,14 +46,15 @@ public class ApplicationUserServiceImpl implements UserDetailsService {
 
 
         ApplicationUser applicationUser = new ApplicationUser(
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                grantedAuthorities,
+                userByUsername.get().getEmail(),
+                userByUsername.get().getPassword(),
+                userByUsername.get().isAccountNonExpired(),
+                userByUsername.get().isAccountNonLocked(),
+                userByUsername.get().isCredentialsNonExpired(),
+                userByUsername.get().isEnabled()
         );
+        return applicationUser;
 
     }
 }
