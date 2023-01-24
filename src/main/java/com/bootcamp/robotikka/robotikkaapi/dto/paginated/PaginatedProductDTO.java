@@ -12,5 +12,5 @@ import java.util.List;
 @Data
 public class PaginatedProductDTO {
     private long count;
-    private List<ResponseProductDTO> data;
+    private List<ResponseProductDTO> list;
 }
