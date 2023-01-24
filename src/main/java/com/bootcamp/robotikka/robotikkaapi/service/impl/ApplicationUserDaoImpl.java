@@ -1,15 +1,10 @@
 package com.bootcamp.robotikka.robotikkaapi.service.impl;
 
-import com.developersatck.security.dao.ApplicationUserDao;
-import com.developersatck.security.dto.ApplicationUser;
+
 import com.google.common.collect.Lists;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
-import static com.developersatck.security.config.permission.ApplicationUserRole.*;
 
 @Repository
 public class ApplicationUserDaoImpl implements ApplicationUserDao {
