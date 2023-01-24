@@ -2,6 +2,7 @@ package com.bootcamp.robotikka.robotikkaapi.config.security;
 
 import com.bootcamp.robotikka.robotikkaapi.jwt_config.JwtAuthenticationFilter;
 import com.bootcamp.robotikka.robotikkaapi.jwt_config.JwtTokenVerifier;
+import com.bootcamp.robotikka.robotikkaapi.service.impl.ApplicationUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,12 +14,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static com.bootcamp.robotikka.robotikkaapi.config.permission.ApplicationUserRole.USER;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationUserServiceImpl applicationUserService;
+
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder, ApplicationUserServiceImpl applicationUserService) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService = applicationUserService;
