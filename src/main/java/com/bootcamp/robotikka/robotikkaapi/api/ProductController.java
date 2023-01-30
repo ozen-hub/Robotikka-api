@@ -7,6 +7,7 @@ import com.bootcamp.robotikka.robotikkaapi.service.ProductService;
 import com.bootcamp.robotikka.robotikkaapi.util.StandardResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -67,6 +68,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/member/list", params = {"searchText","page","size"})
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
     public ResponseEntity<StandardResponse>deleteProduct(
             @RequestParam(required = false) String text,
             @RequestParam int page,

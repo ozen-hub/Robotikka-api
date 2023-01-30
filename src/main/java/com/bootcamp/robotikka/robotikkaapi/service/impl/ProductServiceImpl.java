@@ -90,13 +90,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PaginatedProductDTO findAll(String text, int page, int size) {
+        System.out.println("OK");
         List<ProductConverter> convertableData = productRepo.findAllProductsWithPaginate(
                 text,
                 PageRequest.of(page, size));
-        //long pageCountOne = productRepo.count();
         long pageCountTwo = productRepo.findAllProductsCount(text);
         ArrayList<ResponseProductDTO> dtos = new ArrayList<>();
-        // *** map-structs *****///
         for(ProductConverter c: convertableData){
             dtos.add(
                     new ResponseProductDTO(
