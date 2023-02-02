@@ -5,10 +5,13 @@ import com.bootcamp.robotikka.robotikkaapi.dto.response.CommonResponseDTO;
 import com.bootcamp.robotikka.robotikkaapi.dto.response.ResponseProductDTO;
 import com.bootcamp.robotikka.robotikkaapi.service.ProductService;
 import com.bootcamp.robotikka.robotikkaapi.util.StandardResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -23,9 +26,13 @@ public class ProductController {
 
     @PostMapping("/member/create")
     public ResponseEntity<StandardResponse> createProduct(
-            @RequestBody RequestProductDTO dto
-    ) {
-        CommonResponseDTO savedData = productService.createProduct(dto);
+            @RequestParam("data") String dto,
+            @RequestParam("image") MultipartFile file
+
+    ) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        RequestProductDTO data = objectMapper.readValue(dto, RequestProductDTO.class);
+        CommonResponseDTO savedData = productService.createProduct(file, data);
         return new ResponseEntity<>(
                 new StandardResponse(savedData.getCode(),
                         savedData.getMessage(), savedData.getData()),

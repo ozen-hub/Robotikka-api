@@ -4,9 +4,10 @@ import com.bootcamp.robotikka.robotikkaapi.dto.paginated.PaginatedProductDTO;
 import com.bootcamp.robotikka.robotikkaapi.dto.request.RequestProductDTO;
 import com.bootcamp.robotikka.robotikkaapi.dto.response.CommonResponseDTO;
 import com.bootcamp.robotikka.robotikkaapi.dto.response.ResponseProductDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ProductService {
-    public CommonResponseDTO createProduct(RequestProductDTO dto);
+    public CommonResponseDTO createProduct(MultipartFile image, RequestProductDTO dto);
     public CommonResponseDTO updateProduct(RequestProductDTO dto, String id);
     public ResponseProductDTO findProduct(String id);
 

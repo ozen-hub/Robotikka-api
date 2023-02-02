@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public CommonResponseDTO createProduct(RequestProductDTO dto) {
+    public CommonResponseDTO createProduct(MultipartFile image, RequestProductDTO dto) {
         Product product = new Product(
                 generator.generateKey("PI"),
                 dto.getDisplayName(),
