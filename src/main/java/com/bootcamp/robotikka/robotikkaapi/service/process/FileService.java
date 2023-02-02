@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public interface FileService {
-    public HashMap<String,Object> createFile(MultipartFile file, String directory, String user, int randomId) throws IOException;
+    public HashMap<String,String> createFile(MultipartFile file, String directory, String user, int randomId) throws IOException;
     public boolean deleteFile(String directory, String fileName) throws IOException;
     public byte[] downloadFile(String directory, String fileName) throws IOException;
     public ObjectListing allFiles() throws IOException;

@@ -13,6 +13,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/v1/products")
 @CrossOrigin
@@ -29,7 +31,7 @@ public class ProductController {
             @RequestParam("data") String dto,
             @RequestParam("image") MultipartFile file
 
-    ) throws JsonProcessingException {
+    ) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         RequestProductDTO data = objectMapper.readValue(dto, RequestProductDTO.class);
         CommonResponseDTO savedData = productService.createProduct(file, data);
